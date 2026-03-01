@@ -8,7 +8,7 @@ Run `/standup` in any Claude Code session and get a ready-to-share standup in se
 
 - Pulls **git commits** since your last standup
 - Reads **Claude Code session files** for files edited and tasks worked on
-- Formats everything into a clean **Yesterday / Today / Blockers** report
+- Formats everything into a clean **Yesterday / Today / Blockers** report — TODAY is suggested based on context, so review it before sharing
 - Optionally posts to **Jira** (or you copy-paste it yourself)
 
 ## 30-Second Setup
