@@ -62,6 +62,14 @@ Jira sync is **optional**. After the report is displayed, you'll be asked `Post 
 - Git with `user.email` configured
 - `jq` for session file parsing (optional — graceful fallback if missing)
 
+## Customize It
+
+The standup format, time window, and git author filter are all editable
+in `~/.claude/commands/standup.md`. See [CUSTOMIZATION.md](CUSTOMIZATION.md)
+for common team formats and how to add Jira or Linear integration.
+
+If your format works well — open a PR. That's how this grows.
+
 ## License
 
 MIT

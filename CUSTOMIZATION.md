@@ -1,36 +1,25 @@
 # Customization
 
-## Change the Output Format
+## Change the standup format
 
-Open `commands/standup.md` and find the template under **"Generate Standup Report"**. Replace the Yesterday/Today/Blockers structure with your team's format. Example alternatives:
+Open `~/.claude/commands/standup.md` and find the output format section.
+Replace the Yesterday / Today / Blockers template with your team's format:
 
-**Scrum format (default):**
-```
-YESTERDAY / TODAY / BLOCKERS
-```
+**Scrum:** What I completed / What I'm working on / Impediments
+**Async:** Done / In Progress / Needs Review / Blocked on
+**Engineering manager:** Shipped / In Flight / At Risk / Decisions needed
 
-**Shape Up format:**
-```
-SHIPPED / BUILDING / STUCK
-```
+Save the file. Changes apply immediately on next `/standup` run.
+Pull requests for new formats welcome.
 
-**Async-first format:**
-```
-DONE / NEXT / NEEDS REVIEW
-```
-
-Just swap the section headers and update the formatting rules below them to match.
-
-## Change the Time Window
-
-By default, `/standup` looks back to your last run (or "yesterday" on first use). To look back further:
+## Change the time window
 
 ```bash
 echo "2026-02-28T00:00:00Z" > ~/.standup_last_run
 ```
 
-Then run `/standup` — it will pull everything since that date.
+Run `/standup` — it will pull everything since that date.
 
-## Jira Integration
+## Jira / Linear integration
 
-Jira sync is optional and off by default. To enable, provide your project key when prompted with `Post to Jira? (y/n):`. No config file needed.
+Jira sync is optional and off by default. Provide your project key when prompted with `Post to Jira? (y/n):`. Linear support: open a PR.
