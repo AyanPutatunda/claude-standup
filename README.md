@@ -17,8 +17,8 @@ Run `/standup` in any Claude Code session and get a ready-to-share standup in se
 # 1. Clone the repo
 git clone https://github.com/AyanPutatunda/claude-standup.git
 
-# 2. Copy the skill to Claude Code's global skills directory
-cp -r claude-standup/.claude/skills/standup ~/.claude/skills/standup
+# 2. Copy the command to Claude Code's global commands directory
+cp claude-standup/commands/standup.md ~/.claude/commands/standup.md
 
 # 3. (Optional) Install jq for richer session parsing
 brew install jq   # macOS
