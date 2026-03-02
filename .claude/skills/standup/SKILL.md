@@ -21,8 +21,8 @@ The following commands execute BEFORE the AI processes results (using `!` prefix
 ### Git Data Collection
 
 ```bash
-# Get commits since last standup (defaults to "yesterday" if first run)
-!git log --after=$(cat ~/.standup_last_run 2>/dev/null || echo "yesterday") --author=$(git config user.email) --oneline
+# Get commits since last standup (defaults to "yesterday 6am" if first run)
+!git log --after=$(cat ~/.standup_last_run 2>/dev/null || echo "yesterday 6am") --author=$(git config user.email) --oneline
 
 # Show current changes stats
 !git diff --stat HEAD
@@ -30,8 +30,11 @@ The following commands execute BEFORE the AI processes results (using `!` prefix
 # List any stashed work
 !git stash list
 
-# Update timestamp for next run
-!echo $(date -u +%Y-%m-%dT%H:%M:%SZ) > ~/.standup_last_run
+# Detect whether we're looking at today's work or yesterday's
+!ANCHOR=$(cat ~/.standup_last_run 2>/dev/null || echo ""); TODAY=$(date +%Y-%m-%d); if [ "$ANCHOR" = "$TODAY" ]; then echo "STANDUP_CONTEXT=today_so_far"; else echo "STANDUP_CONTEXT=yesterday"; fi
+
+# Update anchor to today's date only (resets at midnight, not at last run time)
+!echo $(date +%Y-%m-%d) > ~/.standup_last_run
 ```
 
 ### Claude Code Session Data Collection
@@ -67,12 +70,16 @@ After collecting the data above, process it as follows:
 
 ### 3. Generate Standup Report
 
+Check the `STANDUP_CONTEXT` value from the shell output:
+- If `STANDUP_CONTEXT=today_so_far` → label the main section **TODAY SO FAR** (user is mid-day, work is in progress)
+- If `STANDUP_CONTEXT=yesterday` → label the main section **YESTERDAY** (user is reviewing a completed day)
+
 Format the output using this structure:
 
 ```
 📅 STANDUP UPDATE — [Today's Date]
 
-YESTERDAY:
+[YESTERDAY or TODAY SO FAR]:
 • [Aggregate commits into meaningful work items]
 • [Include commit hashes: abc123, def456]
 • [Add Claude Code session work if relevant]
